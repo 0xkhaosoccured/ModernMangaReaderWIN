@@ -3,7 +3,11 @@
              x:Class="MangaReader.App"
              xmlns:local="using:MangaReader"
              RequestedThemeVariant="Dark">
-
+    
+    <Application.Resources>
+        <FontFamily x:Key="RobotoFont">avares://MangaReader/Assets/Fonts/Roboto-Regular.ttf</FontFamily>
+    </Application.Resources>
+    
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>

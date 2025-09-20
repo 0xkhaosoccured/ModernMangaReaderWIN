@@ -37,11 +37,45 @@
             <Setter Property="Opacity" Value="0.9"/>
             <Setter Property="Background" Value="#A0000000"/>
         </Style>
+        
+        <Style Selector="Button.ClickMe">
+            <!-- 1. Заменяем весь стандартный шаблон на свой собственный -->
+            <Setter Property="Template">
+                <ControlTemplate>
+                    <!-- Наш шаблон - это просто рамка с текстом внутри -->
+                    <Border Background="{TemplateBinding Background}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            BorderBrush="{TemplateBinding BorderBrush}">
+                        <ContentPresenter Content="{TemplateBinding Content}"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter>
+
+            <!-- 2. Теперь наши обычные сеттеры будут работать с НАШИМ шаблоном -->
+            <Setter Property="Background" Value="ForestGreen"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="CornerRadius" Value="5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="Width" Value="150"></Setter>
+        </Style>
+    
+        <!-- 3. И стили для состояний теперь тоже работают предсказуемо -->
+        <Style Selector="Button.ClickMe:pointerover">
+            <Setter Property="Background" Value="DarkGreen"/>
+        </Style>
+
+        <Style Selector="Button.ClickMe:pressed">
+            <Setter Property="Background" Value="#004d00"/>
+        </Style>
     </Window.Styles>
     
-    <Grid RowDefinitions="0.03*, 0.95*, 0.02*">
+    <Grid RowDefinitions="0.03*, 0.94*, 0.03*">
         <Border Grid.Row="0" Background="DarkGray">
-            <Button Command="{Binding OpenVolumeCommand}" Background="Black" Content="Открыть том..." HorizontalAlignment="Center" />
+            <Button Command="{Binding OpenVolumeCommand}" Content="Open Folder" HorizontalAlignment="Left" Classes="ClickMe" Margin="10"/>
         </Border>
         
         <Grid Grid.Row="1" Background="Black">
@@ -54,9 +88,9 @@
             <Button Command="{Binding GoToNextPageCommand}" Content="›" HorizontalAlignment="Right" VerticalAlignment="Center" Classes="overlay"/>
         </Grid>
         
-        <Border Grid.Row="2" Background="DarkGray">
+        <Border Grid.Row="2" Background="Black" BorderBrush="Snow" BorderThickness="0,1,0,0">
             <DockPanel>
-                <TextBlock DockPanel.Dock="Right" Text="{Binding Page, StringFormat='Страница: {0}'}" Margin="0,0,10,0"/>
+                <TextBlock DockPanel.Dock="Right" Text="{Binding Page, StringFormat='Страница: {0}'}" FontFamily="{StaticResource RobotoFont}" Margin="0,0,10,0"/>
                 <TextBlock Text="{Binding Volume_name, StringFormat='Текущий файл: {0}'}" Margin="10,0,0,0"/>
             </DockPanel>
         </Border>
